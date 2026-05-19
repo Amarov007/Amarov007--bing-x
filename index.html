@@ -1,1 +1,380 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMAROV007 | BingX Official Partner</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* إعدادات المتغيرات للوضع الداكن (الأساسي) والوضع الفاتح */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0b1528 0%, #0f2446 100%);
+            --card-bg: rgba(19, 38, 68, 0.6);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8; /* أزرق مضيء */
+            --bingx-color: #2b66ff;
+            --border-color: rgba(56, 189, 248, 0.1);
+            --warning-bg: rgba(239, 68, 68, 0.1);
+            --warning-border: rgba(239, 68, 68, 0.4);
+            --warning-text: #ef4444;
+        }
+
+        .light-theme {
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent-color: #0284c7;
+            --border-color: rgba(2, 132, 199, 0.1);
+            --warning-bg: #fef2f2;
+            --warning-border: rgba(239, 68, 68, 0.3);
+            --warning-text: #dc2626;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            transition: background 0.4s ease, color 0.4s ease, border 0.4s ease;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* حاوية شريط الأسعار الحي المتحرك في أعلى الصفحة */
+        .tradingview-widget-container {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            height: 46px;
+            background: #131722; /* لون داكن ثابت متناسق مع التداول */
+        }
+
+        /* حاوية الموقع الأساسية */
+        .wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 110px 20px 40px 20px;
+        }
+
+        /* زر تبديل الوضع */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 8px 14px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* الهيدر التعريفي */
+        header {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .profile-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .profile-title span {
+            color: var(--accent-color);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff9900, #ff5500);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+        }
+
+        /* قسم الشراكة الرسمية مع BingX */
+        .bingx-partner-card {
+            background: linear-gradient(135deg, rgba(43, 102, 255, 0.15) 0%, rgba(15, 36, 70, 0.6) 100%);
+            border: 2px solid var(--bingx-color);
+            border-radius: 20px;
+            padding: 40px 35px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(43, 102, 255, 0.15);
+        }
+
+        .bingx-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .bingx-svg-logo {
+            width: 50px;
+            height: 50px;
+            fill: #ffffff;
+            filter: drop-shadow(0 0 8px rgba(43, 102, 255, 0.6));
+        }
+        .light-theme .bingx-svg-logo { fill: #2b66ff; }
+
+        .bingx-text {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #ffffff;
+            font-family: sans-serif;
+            letter-spacing: -1px;
+        }
+        .light-theme .bingx-text { color: #2b66ff; }
+
+        .partner-status {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-family: sans-serif;
+        }
+
+        .bingx-partner-card p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 10px auto 0 auto;
+            line-height: 1.8;
+        }
+
+        /* قسـم السيرة الذاتية */
+        .bio-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .bio-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .bio-section p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* شبكة الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px 15px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.02);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* روابط ومجموعات التواصل */
+        .social-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .social-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            width: 100px;
+        }
+
+        .social-icon i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-icon span {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* تلوين الأيقونات */
+        .whatsapp i { color: #25D366; }
+        .twitter i { color: var(--text-main); }
+        .instagram i { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .youtube i { color: #FF0000; }
+        .telegram i { color: #0088cc; }
+
+        .social-icon:hover i { transform: scale(1.15) translateY(-5px); }
+
+        /* قسم التحذير من المخاطر وإخلاء المسؤولية */
+        .risk-warning-section {
+            background: var(--warning-bg);
+            border: 1px dashed var(--warning-border);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: justify;
+            margin-top: 20px;
+        }
+
+        .risk-warning-section h4 {
+            color: var(--warning-text);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-warning-section p {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .profile-title { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .social-icon { width: calc(33.33% - 15px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+        "symbols": [
+          {
+            "proName": "FOREXCOM:SPXUSD",
+            "title": "NASDAQ 100"
+          },
+          {
+            "proName": "FX_IDC:XAUUSD",
+            "title": "الذهب / دولار"
+          },
+          {
+            "proName": "FX_IDC:XAGUSD",
+            "title": "الفضة / دولار"
+          },
+          {
+            "proName": "BITSTAMP:BTCUSD",
+            "title": "Bitcoin (BTC)"
+          }
+        ],
+        "showSymbolLogo": true,
+        "colorTheme": "dark",
+        "isTransparent": true,
+        "displayMode": "adaptive",
+        "locale": "ar"
+      }
+        </script>
+    </div>
+
+    <button class="theme-toggle-btn" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-sun"></i>
+        <span id="theme-text">الوضع الفاتح</span>
+    </button>
+
+    <div class="wrapper">
+        
+        <header>
+            <div class="badge"><i class="fas fa-shield-alt"></i> حساب موثق وموثوق</div>
+            <h1 class="profile-title"><span>AMAROV007</span></h1>
+        </header>
+
+        <section class="bingx-partner-card">
+            <div class="bingx-logo-container">
+                <svg class="bingx-svg-logo" viewBox="0 0 24 24">
+                    <path d="M3.5 3.5 C 5.5 5.5, 7.5 8.5, 9.5 10.5 C 7.5 12.5, 5.5 15.5, 3.5 17.5 L 6.5 20.5 C 8.5 18.5, 10.5 15.5, 12 13.5 C 13.5 15.5, 15.5 18.5, 17.5 20.5 L 20.5 17.5 C 18.5 15.5, 15.5 12.5, 13.5 10.5 C 15.5 8.5, 18.5 5.5, 20.5 3.5 L
 
