@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* إعدادات المتغيرات للوضع الداكن (الأساسي) والوضع الفاتح */
+        /* إعدادات المتغيرات للوضع الداكن والوضع الفاتح */
         :root {
             --bg-gradient: linear-gradient(135deg, #0b1528 0%, #0f2446 100%);
             --card-bg: rgba(19, 38, 68, 0.6);
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
-            --accent-color: #38bdf8; /* أزرق مضيء */
+            --accent-color: #38bdf8; 
             --bingx-color: #2b66ff;
             --border-color: rgba(56, 189, 248, 0.1);
             --warning-bg: rgba(239, 68, 68, 0.1);
@@ -50,32 +50,21 @@
             background: var(--bg-gradient);
             color: var(--text-main);
             min-height: 100vh;
+            padding: 0 20px;
             overflow-x: hidden;
-        }
-
-        /* حاوية شريط الأسعار الحي المتحرك في أعلى الصفحة */
-        .tradingview-widget-container {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            height: 46px;
-            background: #131722; /* لون داكن ثابت متناسق مع التداول */
         }
 
         /* حاوية الموقع الأساسية */
         .wrapper {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 110px 20px 40px 20px;
+            padding: 60px 0;
         }
 
         /* زر تبديل الوضع */
         .theme-toggle-btn {
             position: fixed;
-            top: 70px;
+            top: 20px;
             left: 20px;
             background: var(--card-bg);
             border: 2px solid var(--accent-color);
@@ -98,7 +87,6 @@
         /* الهيدر التعريفي */
         header {
             text-align: center;
-            margin-top: 20px;
             margin-bottom: 40px;
         }
 
@@ -108,6 +96,104 @@
             letter-spacing: 1px;
             color: var(--text-main);
             margin-bottom: 5px;
+        }
+
+        .profile-title span {
+            color: var(--accent-color);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff9900, #ff5500);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+        }
+
+        /* قسم الشراكة الرسمية مع TradingView والأسواق المدمجة */
+        .market-widget-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .market-widget-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* قسم الشراكة الرسمية مع BingX */
+        .bingx-partner-card {
+            background: linear-gradient(135deg, rgba(43, 102, 255, 0.15) 0%, rgba(15, 36, 70, 0.6) 100%);
+            border: 2px solid var(--bingx-color);
+            border-radius: 20px;
+            padding: 40px 35px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(43, 102, 255, 0.15);
+        }
+
+        .bingx-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .bingx-svg-logo {
+            width: 50px;
+            height: 50px;
+            fill: #ffffff;
+            filter: drop-shadow(0 0 8px rgba(43, 102, 255, 0.6));
+        }
+        .light-theme .bingx-svg-logo { fill: #2b66ff; }
+
+        .bingx-text {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #ffffff;
+            font-family: sans-serif;
+            letter-spacing: -1px;
+        }
+        .light-theme .bingx-text { color: #2b66ff; }
+
+        .partner-status {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-family: sans-serif;
+        }
+
+        .bingx-partner-card p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 10px auto 0 auto;
+            line-height: 1.8;
+        }
+
+        /* قسـم السيرة الذاتية */
+        .bio-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 20px;
         }
 
         .profile-title span {
