@@ -1,46 +1,73 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark-theme">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMAROV007 | BingX Official Partner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body {
-            background-color: #0b1528;
-            color: #ffffff;
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-        .container {
-            padding: 20px;
-        }
-        .btn {
-            background-color: #2b66ff;
-            color: white;
-            padding: 20px 40px;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 50px;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(43, 102, 255, 0.4);
-        }
+        :root { --bg-gradient: linear-gradient(135deg, #0b1528 0%, #0f2446 100%); --card-bg: rgba(19, 38, 68, 0.6); --text-main: #f1f5f9; --text-muted: #94a3b8; --accent-color: #38bdf8; --bingx-color: #2b66ff; --border-color: rgba(56, 189, 248, 0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: var(--bg-gradient); color: var(--text-main); min-height: 100vh; padding: 20px; }
+        .wrapper { max-width: 800px; margin: 0 auto; }
+        
+        header { text-align: center; margin-bottom: 30px; }
+        .profile-title { font-size: 2.5rem; font-weight: 900; color: var(--text-main); }
+        .profile-title span { color: var(--accent-color); }
+        
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); padding: 30px; border-radius: 20px; margin-bottom: 20px; text-align: center; }
+        
+        .btn-register { display: inline-block; background: #2b66ff; color: #ffffff !important; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 1.1rem; box-shadow: 0 0 15px rgba(43, 102, 255, 0.5); transition: 0.3s; }
+        .btn-register:hover { transform: scale(1.05); background: #1d4ed8; }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: var(--card-bg); padding: 15px; border-radius: 15px; }
+        
+        .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; font-size: 1.5rem; }
+        .social-links a { color: var(--text-main); text-decoration: none; }
+        
+        .footer-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 30px; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>AMAROV007</h1>
-        <p>Official Strategic Partner with BingX</p>
-        <br>
-        <a href="https://bingxdao.com/invite/QMWBFQ/" class="btn">
-            سجل معنا في منصة BingX
-        </a>
+    <div class="wrapper">
+        <header>
+            <h1 class="profile-title">AMAROV007</h1>
+        </header>
+
+        <section class="card">
+            <h2>Official Strategic Partner</h2>
+            <p style="margin: 15px 0;">بصفتي شريكاً استراتيجياً معتمداً لمنصة BingX، نضمن لك بيئة تداول آمنة.</p>
+            <a href="https://bingxdao.com/invite/QMWBFQ/" class="btn-register" target="_blank" rel="noopener noreferrer">
+                سجل معنا الآن في المنصة
+            </a>
+        </section>
+
+        <section class="card">
+            <h2>من هو AMAROV007؟</h2>
+            <p style="margin-top: 10px; text-align: justify; color: var(--text-muted);">متداول ومحلل مالي محترف، متخصص في الأسواق الرقمية والعالمية. نهدف لتمكين المتداولين العرب من تحقيق استقلالهم المالي بأدوات احترافية.</p>
+        </section>
+
+        <div class="stats-grid">
+            <div class="stat-card"><h3>+350</h3><p>متداول محترف</p></div>
+            <div class="stat-card"><h3>88%</h3><p>نسبة النجاح</p></div>
+        </div>
+
+        <div class="card">
+            <h3>تابعنا على القنوات الرسمية</h3>
+            <div class="social-links">
+                <a href="https://t.me/amkhtrading"><i class="fab fa-telegram"></i></a>
+                <a href="https://wa.me/963931630903"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <footer class="footer-note">
+            <p>تحذير: التداول ينطوي على مخاطر عالية. كافة المحتويات لأغراض تعليمية فقط.</p>
+            <p>© 2026 جميع الحقوق محفوظة لـ AMAROV007</p>
+        </footer>
     </div>
 
 </body>
