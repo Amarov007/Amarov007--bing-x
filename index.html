@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMAROV007 | BingX Official Partner</title>
     
-    <!-- الخطوط والأيقونات -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cloudflare.com">
     
     <style>
+        /* إعدادات المتغيرات للوضع الداكن والوضع الفاتح */
         :root {
             --bg-gradient: linear-gradient(135deg, #0b1528 0%, #0f2446 100%);
             --card-bg: rgba(19, 38, 68, 0.6);
@@ -20,6 +21,9 @@
             --accent-color: #38bdf8; 
             --bingx-color: #2b66ff;
             --border-color: rgba(56, 189, 248, 0.1);
+            --warning-bg: rgba(239, 68, 68, 0.1);
+            --warning-border: rgba(239, 68, 68, 0.4);
+            --warning-text: #ef4444;
             --top-bar-bg: #070d1a;
             --btn-glow: rgba(43, 102, 255, 0.6);
         }
@@ -31,137 +35,282 @@
             --text-muted: #475569;
             --accent-color: #0284c7;
             --border-color: rgba(2, 132, 199, 0.1);
+            --warning-bg: #fef2f2;
+            --warning-border: rgba(239, 68, 68, 0.3);
+            --warning-text: #dc2626;
             --top-bar-bg: #e2e8f0;
             --btn-glow: rgba(2, 132, 199, 0.4);
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
         }
 
         body {
             background: var(--bg-gradient);
             color: var(--text-main);
             min-height: 100vh;
-            padding-top: 80px;
-            transition: all 0.3s ease;
+            overflow-x: hidden;
+            padding-top: 70px; /* مسافة أمان للشريط العلوي الجديد */
         }
 
-        /* الشريط العلوي */
+        /* ------------------------------------------- */
+        /* شريط وسائل التواصل الاجتماعي المصغر العلوي الثابت */
+        /* ------------------------------------------- */
         .top-social-bar {
-            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
             background: var(--top-bar-bg);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9999; border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .top-social-links { display: flex; gap: 20px; }
-        .top-social-icon { font-size: 1.5rem; text-decoration: none; transition: 0.3s; }
-        .top-social-icon:hover { transform: translateY(-3px); }
+        .top-social-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
 
-        .top-tg { color: #0088cc; }
+        .top-social-icon {
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .top-social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* ألوان الأيقونات العلوية */
         .top-wa { color: #25D366; }
+        .top-tw { color: var(--text-main); }
+        .top-in { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .top-yt { color: #FF0000; }
+        .top-tg { color: #0088cc; }
 
-        /* حاوية المحتوى */
-        .wrapper { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
+        /* ------------------------------------------- */
+        /* زر تبديل الوضع الدائري العائم والجانبي (Floating Button) */
+        /* ------------------------------------------- */
+        .theme-toggle-floating {
+            position: fixed;
+            bottom: 25px;
+            right: 25px; /* يظهر أسفل يمين الشاشة بشكل جانبي وأنيق */
+            width: 48px;
+            height: 48px;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 10000;
+            transition: transform 0.2s ease;
+        }
+        
+        .theme-toggle-floating:hover {
+            transform: scale(1.1);
+        }
+
+        /* حاوية الموقع الأساسية */
+        .wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* الهيدر التعريفي */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .profile-title span {
+            color: var(--accent-color);
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
 
         .badge {
+            display: inline-block;
             background: linear-gradient(90deg, #ff9900, #ff5500);
-            color: white; padding: 5px 15px; border-radius: 20px;
-            font-size: 0.8rem; margin-bottom: 15px; display: inline-block;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
         }
+        .badge i { margin-left: 5px; }
 
-        .profile-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
-        .profile-title span { color: var(--accent-color); }
-
-        /* بطاقة BingX */
+        /* قسم الشراكة الرسمية مع BingX */
         .bingx-partner-card {
-            background: var(--card-bg);
+            background: linear-gradient(135deg, rgba(43, 102, 255, 0.15) 0%, rgba(15, 36, 70, 0.6) 100%);
             border: 2px solid var(--bingx-color);
-            border-radius: 25px; padding: 40px 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 40px 35px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(43, 102, 255, 0.15);
         }
 
-        .partner-status { color: var(--accent-color); font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; display: block;}
+        .bingx-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
 
-        /* زر التسجيل - الأهم للتلجرام */
+        .bingx-svg-logo {
+            width: 50px;
+            height: 50px;
+            fill: #ffffff;
+            filter: drop-shadow(0 0 8px rgba(43, 102, 255, 0.6));
+        }
+        .light-theme .bingx-svg-logo { fill: #2b66ff; }
+
+        .bingx-text {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #ffffff;
+            font-family: sans-serif;
+            letter-spacing: -1px;
+        }
+        .light-theme .bingx-text { color: #2b66ff; }
+
+        .partner-status {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-family: sans-serif;
+        }
+
+        .bingx-partner-card p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 10px auto 25px auto;
+            line-height: 1.8;
+        }
+
+        /* ------------------------------------------- */
+        /* زر التسجيل اللامع والجاذب والمتحرك (Register CTA Button) */
+        /* ------------------------------------------- */
         .cta-register-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: var(--bingx-color); color: white !important;
-            text-decoration: none; padding: 15px 35px;
-            border-radius: 50px; font-weight: 800; font-size: 1.2rem;
-            margin-top: 25px; box-shadow: 0 5px 15px var(--btn-glow);
-            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #2b66ff, #1d4ed8);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 40px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            border-radius: 50px;
+            box-shadow: 0 0 20px var(--btn-glow);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: pulseGlow 2s infinite ease-in-out;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
         }
 
-        .cta-register-btn:hover { transform: scale(1.05); opacity: 0.9; }
-
-        /* زر تبديل الوضع */
-        .theme-toggle-floating {
-            position: fixed; bottom: 25px; right: 25px;
-            width: 50px; height: 50px; border-radius: 50%;
-            background: var(--card-bg); border: 2px solid var(--accent-color);
-            color: var(--accent-color); cursor: pointer; font-size: 1.2rem;
-            z-index: 10000;
+        .cta-register-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--btn-glow);
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px var(--btn-glow); }
-            50% { box-shadow: 0 0 25px var(--btn-glow); }
-            100% { box-shadow: 0 0 10px var(--btn-glow); }
+            0% { box-shadow: 0 0 15px var(--btn-glow); }
+            50% { box-shadow: 0 0 35px var(--btn-glow); }
+            100% { box-shadow: 0 0 15px var(--btn-glow); }
         }
-        .cta-register-btn { animation: pulseGlow 2s infinite; }
     </style>
 </head>
 <body>
 
+    <!-- شريط التواصل الاجتماعي العلوي -->
     <div class="top-social-bar">
         <div class="top-social-links">
-            <a href="#" class="top-social-icon top-tg"><i class="fab fa-telegram"></i></a>
             <a href="#" class="top-social-icon top-wa"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="top-social-icon top-tw"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="top-social-icon top-in"><i class="fab fa-instagram"></i></a>
             <a href="#" class="top-social-icon top-yt"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="top-social-icon top-tg"><i class="fab fa-telegram"></i></a>
         </div>
     </div>
 
-    <button class="theme-toggle-floating" id="themeBtn">
+    <!-- زر التبديل العائم للثيم -->
+    <button class="theme-toggle-floating" id="themeToggleBtn">
         <i class="fas fa-sun"></i>
     </button>
 
+    <!-- المحتوى والبطاقة -->
     <div class="wrapper">
         <header>
-            <div class="badge"><i class="fas fa-check-circle"></i> شريك موثق</div>
+            <div class="badge"><i class="fas fa-certificate"></i> BingX Official Partner</div>
             <h1 class="profile-title">AMAROV<span>007</span></h1>
         </header>
 
         <div class="bingx-partner-card">
-            <span class="partner-status">OFFICIAL PARTNER</span>
-            <h2 style="font-size: 2rem; margin-bottom: 15px;">BingX</h2>
-            <p style="color: var(--text-muted); line-height: 1.6;">
-                سجل الآن من خلال الرابط الرسمي للحصول على مكافآت حصرية تصل إلى 5000$ وميزات تداول متقدمة.
-            </p>
+            <div class="bingx-logo-container">
+                <!-- شعار افتراضي نصي وأيقونة مدمجة -->
+                <i class="fas fa-chart-line bingx-svg-logo"></i>
+                <span class="bingx-text">BingX</span>
+            </div>
+            <div class="partner-status">Official Partner</div>
+            <p>سجل الآن في منصة BingX العالمية من خلال رابط الشراكة الرسمي للحصول على مكافآت ترحيبية حصرية وميزات تداول فريدة ومتقدمة.</p>
             
-            <!-- زر الرابط المعدل -->
+            <!-- زر التثبيت المتوافق تماماً مع متصفح تلجرام والمغلق برمجياً -->
             <a href="https://bingx.com" target="_blank" rel="noopener noreferrer" class="cta-register-btn">
                 <i class="fas fa-user-plus"></i>
-                <span>ابدأ التسجيل الآن</span>
+                <span>اضغط هنا للتسجيل</span>
             </a>
         </div>
     </div>
 
+    <!-- كود الجافا سكريبت لتفعيل زر الثيم الداكن والفاتح -->
     <script>
-        const btn = document.getElementById('themeBtn');
-        btn.addEventListener('click', () => {
+        const themeBtn = document.getElementById('themeToggleBtn');
+        themeBtn.addEventListener('click', () => {
             document.documentElement.classList.toggle('light-theme');
-            const icon = btn.querySelector('i');
-            if(document.documentElement.classList.contains('light-theme')) {
+            const icon = themeBtn.querySelector('i');
+            if (document.documentElement.classList.contains('light-theme')) {
                 icon.className = 'fas fa-moon';
             } else {
                 icon.className = 'fas fa-sun';
             }
         });
     </script>
+
 </body>
 </html>
