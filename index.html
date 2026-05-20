@@ -24,6 +24,7 @@
             --warning-bg: rgba(239, 68, 68, 0.1);
             --warning-border: rgba(239, 68, 68, 0.4);
             --warning-text: #ef4444;
+            --ticker-bg: #131722;
         }
 
         .light-theme {
@@ -36,6 +37,7 @@
             --warning-bg: #fef2f2;
             --warning-border: rgba(239, 68, 68, 0.3);
             --warning-text: #dc2626;
+            --ticker-bg: #f1f5f9;
         }
 
         * {
@@ -51,26 +53,74 @@
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
-            padding-top: 50px; /* مسافة أمان ثابتة لعدم تداخل محتوى الموقع مع شريط الأسعار العلوي */
+            padding-top: 60px; /* مسافة أمان للشريط العلوي */
         }
 
-        /* حاوية شريط الأسعار الحي المتحرك المثبت في أعلى الشاشة */
-        .header-ticker-container {
-            width: 100%;
+        /* ------------------------------------------- */
+        /* شريط الأسعار المتحرك والمحلي (CSS Ticker) المستقر تماماً */
+        /* ------------------------------------------- */
+        .custom-ticker-wrapper {
             position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 45px;
+            background: var(--ticker-bg);
+            border-bottom: 1px solid var(--border-color);
             z-index: 9999;
-            height: 46px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            background: #131722;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
+
+        .custom-ticker-track {
+            display: flex;
+            width: max-content;
+            animation: tickerMovement 25s linear infinite;
+        }
+
+        /* عند تمرير الماوس يتوقف الشريط مؤقتاً لتسهيل القراءة */
+        .custom-ticker-wrapper:hover .custom-ticker-track {
+            animation-play-state: paused;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .ticker-item .symbol {
+            color: var(--text-main);
+        }
+
+        .ticker-item .price {
+            color: var(--accent-color);
+            font-family: monospace;
+            font-size: 1rem;
+        }
+
+        .ticker-item .change-up {
+            color: #22c55e; /* أخضر صعود */
+        }
+
+        /* حركة الشريط المستمرة من اليمين إلى اليسار */
+        @keyframes tickerMovement {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        /* ------------------------------------------- */
 
         /* حاوية الموقع الأساسية */
         .wrapper {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 20px;
             position: relative;
             z-index: 1;
         }
@@ -90,12 +140,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             width: fit-content;
         }
-        .theme-toggle-btn:hover {
-            transform: scale(1.05);
-        }
-        .theme-toggle-btn i {
-            margin-left: 6px;
-        }
+        .theme-toggle-btn:hover { transform: scale(1.05); }
+        .theme-toggle-btn i { margin-left: 6px; }
 
         /* الهيدر التعريفي */
         header {
@@ -127,9 +173,7 @@
             margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
         }
-        .badge i {
-            margin-left: 5px;
-        }
+        .badge i { margin-left: 5px; }
 
         /* قسم الشراكة الرسمية مع BingX */
         .bingx-partner-card {
@@ -200,9 +244,7 @@
             margin-bottom: 15px;
             color: var(--accent-color);
         }
-        .bio-section h2 i {
-            margin-left: 8px;
-        }
+        .bio-section h2 i { margin-left: 8px; }
 
         .bio-section p {
             font-size: 1.15rem;
@@ -257,9 +299,7 @@
             margin-bottom: 25px;
             color: var(--text-main);
         }
-        .social-container h2 i {
-            margin-left: 8px;
-        }
+        .social-container h2 i { margin-left: 8px; }
 
         .social-links {
             display: flex;
@@ -316,9 +356,7 @@
             align-items: center;
             gap: 8px;
         }
-        .risk-warning-section h4 i {
-            margin-left: 5px;
-        }
+        .risk-warning-section h4 i { margin-left: 5px; }
 
         .risk-warning-section p {
             font-size: 0.85rem;
@@ -344,16 +382,159 @@
 </head>
 <body>
 
-    <div class="header-ticker-container">
-        <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-            {
-            "symbols": [
-              {
-                "proName": "FOREXCOM:SPXUSD",
-                "title": "NASDAQ 100"
-              },
-              {
-                "proName": "FX_IDC:XAUUSD",
-                "title": "الذهب / دولار"
+    <div class="custom-ticker-wrapper">
+        <div class="custom-ticker-track">
+            <div class="ticker-item"><span class="symbol">🥇 الذهب / دولار</span><span class="price">$2,415.30</span><span class="change-up">(+0.64%)</span></div>
+            <div class="ticker-item"><span class="symbol">🥈 الفضة / دولار</span><span class="price">$28.16</span><span class="change-up">(+0.10%)</span></div>
+            <div class="ticker-item"><span class="symbol">📊 NASDAQ 100</span><span class="price">18,620</span><span class="change-up">(+0.45%)</span></div>
+            <div class="ticker-item"><span class="symbol">🪙 Bitcoin (BTC)</span><span class="price">$76,785</span><span class="change-up">(+0.04%)</span></div>
+            <div class="ticker-item"><span class="symbol">🥇 الذهب / دولار</span><span class="price">$2,415.30</span><span class="change-up">(+0.64%)</span></div>
+            <div class="ticker-item"><span class="symbol">🥈 الفضة / دولار</span><span class="price">$28.16</span><span class="change-up">(+0.10%)</span></div>
+            <div class="ticker-item"><span class="symbol">📊 NASDAQ 100</span><span class="price">18,620</span><span class="change-up">(+0.45%)</span></div>
+            <div class="ticker-item"><span class="symbol">🪙 Bitcoin (BTC)</span><span class="price">$76,785</span><span class="change-up">(+0.04%)</span></div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        
+        <button class="theme-toggle-btn" onclick="toggleTheme()">
+            <i id="theme-icon" class="fas fa-sun"></i>
+            <span id="theme-text">الوضع الفاتح</span>
+        </button>
+
+        <header>
+            <div class="badge"><i class="fas fa-shield-alt"></i> حساب موثق وموثوق</div>
+            <h1 class="profile-title"><span>AMAROV007</span></h1>
+        </header>
+
+        <section class="bingx-partner-card">
+            <div class="bingx-logo-container">
+                <svg class="bingx-svg-logo" viewBox="0 0 24 24">
+                    <path d="M3.5 3.5 C 5.5 5.5, 7.5 8.5, 9.5 10.5 C 7.5 12.5, 5.5 15.5, 3.5 17.5 L 6.5 20.5 C 8.5 18.5, 10.5 15.5, 12 13.5 C 13.5 15.5, 15.5 18.5, 17.5 20.5 L 20.5 17.5 C 18.5 15.5, 15.5 12.5, 13.5 10.5 C 15.5 8.5, 18.5 5.5, 20.5 3.5 L 17.5 0.5 C 15.5 2.5, 13.5 5.5, 12 7.5 C 10.5 5.5, 8.5 2.5, 6.5 0.5 Z" fill-rule="evenodd"/>
+                </svg>
+                <div class="bingx-text">BingX</div>
+            </div>
+            <div class="partner-status">OFFICIAL STRATEGIC PARTNER</div>
+            <p>بصفتي شريكاً استراتيجياً معتمداً لمنصة التداول العالمية BingX، نضمن لك بيئة تداول آمنة، أدوات تحليلية متطورة، ومزايا حصرية مخصصة لأفراد مجتمعنا الاستثماري.</p>
+        </section>
+
+        <section class="bio-section">
+            <h2><i class="fas fa-user-tie"></i> من هو AMAROV007؟</h2>
+            <p>متداول ومحلل مالي محترف في الأسواق الرقمية والعالمية، ومؤسس أحد أكبر المجتمعات الاستثمارية الرائدة. أهتم بتقديم رؤية تحليلية مبنية على قراءة دقيقة لحركة الأموال الذكية (Smart Money Concepts)، وإدارة المخاطر الصارمة. قمت ببناء بيئة استثمارية متكاملة لتمكين المتداولين العرب من تحقيق استقلالهم المالي والوصول إلى الاحترافية بالتعاون مع كبرى المنصات العالمية الموثوقة.</p>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-target="350">+350</div>
+                <div class="stat-label">متداول محترف بالفريق</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="88">88%</div>
+                <div class="stat-label">نسبة نجاح الصفقات (Win Rate)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="1500">+1,500</div>
+                <div class="stat-label">عضو نشط بالمجتمع</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="1200000">+$1.2M</div>
+                <div class="stat-label">حجم التداول اليومي لمجتمعنا</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="45">+45</div>
+                <div class="stat-label">ورشة عمل وبث مباشر</div>
+            </div>
+        </section>
+
+        <section class="social-container">
+            <h2><i class="fas fa-link"></i> انضم إلى قنواتنا الرسمية</h2>
+            <div class="social-links">
+                
+                <a href="https://wa.me/963931630903" class="social-icon whatsapp" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>واتساب</span>
+                </a>
+
+                <a href="https://x.com/amarov0077" class="social-icon twitter" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-x-twitter"></i>
+                    <span>تويتر (X)</span>
+                </a>
+
+                <a href="https://www.instagram.com/amarove007?igsh=MWNobmJubmM2YTN1dA==" class="social-icon instagram" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                    <span>إنستغرام</span>
+                </a>
+
+                <a href="https://youtube.com/@amaemovvva?si=ojXIoZODY3JZwwgR" class="social-icon youtube" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-youtube"></i>
+                    <span>يوتيوب</span>
+                </a>
+
+                <a href="https://t.me/amkhtrading" class="social-icon telegram" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>تيليغرام</span>
+                </a>
+
+            </div>
+        </section>
+
+        <section class="risk-warning-section">
+            <h4><i class="fas fa-exclamation-triangle"></i> تحذير من المخاطر العالية وإخلاء مسؤولية:</h4>
+            <p>تنطوي عمليات تداول الأوراق المالية، العقود الآجلة، والعملات الرقمية (Crypto) على مخاطر مالية عالية جداً، وقد لا تكون مناسبة لجميع فئات المستثمرين. إن استخدام الرافعة المالية في التداول يمكن أن يعمل لصالحك أو ضدك، وقد يؤدي إلى خسارة جزء من رأس مالك أو كله. إن كافة التحليلات، الاستراتيجيات، والآراء المنشورة في هذا الموقع أو عبر قنواتنا التابعة هي لأغراض تعليمية وإرشادية فقط، ولا تشكل بأي حال من الأحوال نصيحة استثمارية أو دعوة مباشرة للشراء أو البيع. أنت وحدك المسؤول عن قراراتك الاستثمارية وعن إدارة المخاطر الخاصة بمحفظتك.</p>
+        </section>
+
+        <footer>
+            <p>© 2026 جميع الحقوق محفوظة لـ AMAROV007 | Official Partner of BingX</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const htmlElement = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            
+            if (htmlElement.classList.contains('dark-theme')) {
+                htmlElement.classList.remove('dark-theme');
+                htmlElement.classList.add('light-theme');
+                icon.className = 'fas fa-moon';
+                text.innerText = 'الوضع الداكن';
+            } else {
+                htmlElement.classList.remove('light-theme');
+                htmlElement.classList.add('dark-theme');
+                icon.className = 'fas fa-sun';
+                text.innerText = 'الوضع الفاتح';
+            }
+        }
+
+        // تشغيل عداد الأرقام تلقائياً بشكل آمن وسلس
+        document.querySelectorAll('.stat-number').forEach(triggerCounter);
+
+        function triggerCounter(counter) {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const speed = target / 40;
+
+            const updateCount = () => {
+                count += speed;
+                if (count < target) {
+                    if(target === 1200000) {
+                        counter.innerText = "+$" + (Math.floor(count/100000) / 10).toFixed(1) + "M";
+                    } else {
+                        counter.innerText = (counter.getAttribute('data-target').includes('%') ? '' : '+') + Math.floor(count) + (counter.getAttribute('data-target').includes('%') ? '%' : '');
+                    }
+                    setTimeout(updateCount, 25);
+                } else {
+                    if(target === 1200000) {
+                        counter.innerText = "+$1.2M";
+                    } else {
+                        counter.innerText = (counter.getAttribute('data-target').includes('%') ? '' : '+') + target.toLocaleString() + (counter.getAttribute('data-target').includes('%') ? '%' : '');
+                    }
+                }
+            };
+            updateCount();
+        }
+    </script>
+</body>
+</html>
