@@ -24,7 +24,6 @@
             --warning-bg: rgba(239, 68, 68, 0.1);
             --warning-border: rgba(239, 68, 68, 0.4);
             --warning-text: #ef4444;
-            --ticker-bg: #131722;
         }
 
         .light-theme {
@@ -37,7 +36,6 @@
             --warning-bg: #fef2f2;
             --warning-border: rgba(239, 68, 68, 0.3);
             --warning-text: #dc2626;
-            --ticker-bg: #f1f5f9;
         }
 
         * {
@@ -53,74 +51,14 @@
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
-            padding-top: 60px; /* مسافة أمان للشريط العلوي */
+            padding-top: 30px;
         }
-
-        /* ------------------------------------------- */
-        /* شريط الأسعار المتحرك والمحلي (CSS Ticker) المستقر تماماً */
-        /* ------------------------------------------- */
-        .custom-ticker-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 45px;
-            background: var(--ticker-bg);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 9999;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .custom-ticker-track {
-            display: flex;
-            width: max-content;
-            animation: tickerMovement 25s linear infinite;
-        }
-
-        /* عند تمرير الماوس يتوقف الشريط مؤقتاً لتسهيل القراءة */
-        .custom-ticker-wrapper:hover .custom-ticker-track {
-            animation-play-state: paused;
-        }
-
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0 30px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .ticker-item .symbol {
-            color: var(--text-main);
-        }
-
-        .ticker-item .price {
-            color: var(--accent-color);
-            font-family: monospace;
-            font-size: 1rem;
-        }
-
-        .ticker-item .change-up {
-            color: #22c55e; /* أخضر صعود */
-        }
-
-        /* حركة الشريط المستمرة من اليمين إلى اليسار */
-        @keyframes tickerMovement {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
-        /* ------------------------------------------- */
 
         /* حاوية الموقع الأساسية */
         .wrapper {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 20px;
             position: relative;
             z-index: 1;
         }
@@ -381,19 +319,6 @@
     </style>
 </head>
 <body>
-
-    <div class="custom-ticker-wrapper">
-        <div class="custom-ticker-track">
-            <div class="ticker-item"><span class="symbol">🥇 الذهب / دولار</span><span class="price">$2,415.30</span><span class="change-up">(+0.64%)</span></div>
-            <div class="ticker-item"><span class="symbol">🥈 الفضة / دولار</span><span class="price">$28.16</span><span class="change-up">(+0.10%)</span></div>
-            <div class="ticker-item"><span class="symbol">📊 NASDAQ 100</span><span class="price">18,620</span><span class="change-up">(+0.45%)</span></div>
-            <div class="ticker-item"><span class="symbol">🪙 Bitcoin (BTC)</span><span class="price">$76,785</span><span class="change-up">(+0.04%)</span></div>
-            <div class="ticker-item"><span class="symbol">🥇 الذهب / دولار</span><span class="price">$2,415.30</span><span class="change-up">(+0.64%)</span></div>
-            <div class="ticker-item"><span class="symbol">🥈 الفضة / دولار</span><span class="price">$28.16</span><span class="change-up">(+0.10%)</span></div>
-            <div class="ticker-item"><span class="symbol">📊 NASDAQ 100</span><span class="price">18,620</span><span class="change-up">(+0.45%)</span></div>
-            <div class="ticker-item"><span class="symbol">🪙 Bitcoin (BTC)</span><span class="price">$76,785</span><span class="change-up">(+0.04%)</span></div>
-        </div>
-    </div>
 
     <div class="wrapper">
         
