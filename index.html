@@ -50,38 +50,51 @@
             background: var(--bg-gradient);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 0 20px;
             overflow-x: hidden;
+            padding-top: 50px; /* مسافة أمان ثابتة لعدم تداخل محتوى الموقع مع شريط الأسعار العلوي */
+        }
+
+        /* حاوية شريط الأسعار الحي المتحرك المثبت في أعلى الشاشة */
+        .header-ticker-container {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            height: 46px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: #131722;
         }
 
         /* حاوية الموقع الأساسية */
         .wrapper {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 60px 0;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* زر تبديل الوضع */
         .theme-toggle-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
+            display: block;
+            margin: 0 auto 30px auto;
             background: var(--card-bg);
             border: 2px solid var(--accent-color);
             color: var(--accent-color);
-            padding: 8px 14px;
+            padding: 8px 20px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 0.9rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            z-index: 1000;
+            width: fit-content;
         }
         .theme-toggle-btn:hover {
             transform: scale(1.05);
+        }
+        .theme-toggle-btn i {
+            margin-left: 6px;
         }
 
         /* الهيدر التعريفي */
@@ -114,103 +127,8 @@
             margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
         }
-
-        /* قسم الشراكة الرسمية مع TradingView والأسواق المدمجة */
-        .market-widget-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .market-widget-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* قسم الشراكة الرسمية مع BingX */
-        .bingx-partner-card {
-            background: linear-gradient(135deg, rgba(43, 102, 255, 0.15) 0%, rgba(15, 36, 70, 0.6) 100%);
-            border: 2px solid var(--bingx-color);
-            border-radius: 20px;
-            padding: 40px 35px;
-            text-align: center;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(43, 102, 255, 0.15);
-        }
-
-        .bingx-logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .bingx-svg-logo {
-            width: 50px;
-            height: 50px;
-            fill: #ffffff;
-            filter: drop-shadow(0 0 8px rgba(43, 102, 255, 0.6));
-        }
-        .light-theme .bingx-svg-logo { fill: #2b66ff; }
-
-        .bingx-text {
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: #ffffff;
-            font-family: sans-serif;
-            letter-spacing: -1px;
-        }
-        .light-theme .bingx-text { color: #2b66ff; }
-
-        .partner-status {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--accent-color);
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            font-family: sans-serif;
-        }
-
-        .bingx-partner-card p {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 650px;
-            margin: 10px auto 0 auto;
-            line-height: 1.8;
-        }
-
-        /* قسـم السيرة الذاتية */
-        .bio-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 35px;
-            border-radius: 20px;
-        }
-
-        .profile-title span {
-            color: var(--accent-color);
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(90deg, #ff9900, #ff5500);
-            color: white;
-            padding: 6px 18px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+        .badge i {
+            margin-left: 5px;
         }
 
         /* قسم الشراكة الرسمية مع BingX */
@@ -282,6 +200,9 @@
             margin-bottom: 15px;
             color: var(--accent-color);
         }
+        .bio-section h2 i {
+            margin-left: 8px;
+        }
 
         .bio-section p {
             font-size: 1.15rem;
@@ -290,7 +211,7 @@
             text-align: justify;
         }
 
-        /* شبكة الإحصائيات */
+        /* شبكة الإحصائيات الذكية */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -301,7 +222,7 @@
         .stat-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 20px 15px;
+            padding: 25px 15px;
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 8px 25px rgba(0,0,0,0.02);
@@ -336,6 +257,9 @@
             margin-bottom: 25px;
             color: var(--text-main);
         }
+        .social-container h2 i {
+            margin-left: 8px;
+        }
 
         .social-links {
             display: flex;
@@ -364,7 +288,7 @@
             font-weight: 600;
         }
 
-        /* تلوين الأيقونات */
+        /* ألوان أيقونات السوشيال ميديا */
         .whatsapp i { color: #25D366; }
         .twitter i { color: var(--text-main); }
         .instagram i { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -392,6 +316,9 @@
             align-items: center;
             gap: 8px;
         }
+        .risk-warning-section h4 i {
+            margin-left: 5px;
+        }
 
         .risk-warning-section p {
             font-size: 0.85rem;
@@ -406,61 +333,27 @@
             font-size: 0.9rem;
         }
 
-        /* التجاوب */
+        /* توافق الشاشات والهواتف الذكية */
         @media (max-width: 768px) {
             .profile-title { font-size: 2.5rem; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
-            .social-icon { width: calc(33.33% - 15px); }
+            .social-links { gap: 15px; }
+            .social-icon { width: calc(33% - 10px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-        "symbols": [
-          {
-            "proName": "FOREXCOM:SPXUSD",
-            "title": "NASDAQ 100"
-          },
-          {
-            "proName": "FX_IDC:XAUUSD",
-            "title": "الذهب / دولار"
-          },
-          {
-            "proName": "FX_IDC:XAGUSD",
-            "title": "الفضة / دولار"
-          },
-          {
-            "proName": "BITSTAMP:BTCUSD",
-            "title": "Bitcoin (BTC)"
-          }
-        ],
-        "showSymbolLogo": true,
-        "colorTheme": "dark",
-        "isTransparent": true,
-        "displayMode": "adaptive",
-        "locale": "ar"
-      }
-        </script>
-    </div>
-
-    <button class="theme-toggle-btn" onclick="toggleTheme()">
-        <i id="theme-icon" class="fas fa-sun"></i>
-        <span id="theme-text">الوضع الفاتح</span>
-    </button>
-
-    <div class="wrapper">
-        
-        <header>
-            <div class="badge"><i class="fas fa-shield-alt"></i> حساب موثق وموثوق</div>
-            <h1 class="profile-title"><span>AMAROV007</span></h1>
-        </header>
-
-        <section class="bingx-partner-card">
-            <div class="bingx-logo-container">
-                <svg class="bingx-svg-logo" viewBox="0 0 24 24">
-                    <path d="M3.5 3.5 C 5.5 5.5, 7.5 8.5, 9.5 10.5 C 7.5 12.5, 5.5 15.5, 3.5 17.5 L 6.5 20.5 C 8.5 18.5, 10.5 15.5, 12 13.5 C 13.5 15.5, 15.5 18.5, 17.5 20.5 L 20.5 17.5 C 18.5 15.5, 15.5 12.5, 13.5 10.5 C 15.5 8.5, 18.5 5.5, 20.5 3.5 L
-
+    <div class="header-ticker-container">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+            "symbols": [
+              {
+                "proName": "FOREXCOM:SPXUSD",
+                "title": "NASDAQ 100"
+              },
+              {
+                "proName": "FX_IDC:XAUUSD",
+                "title": "الذهب / دولار"
